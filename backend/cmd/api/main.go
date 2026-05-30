@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"crypto/tls"
 	"log"
 	"net/http"
 	"time"
@@ -31,11 +32,14 @@ func main() {
 		log.Fatalf("ping postgres: %v", err)
 	}
 
-	redisClient := redis.NewClient(&redis.Options{
-		Addr:     cfg.RedisAddr,
-		Password: cfg.RedisPassword,
-		DB:       cfg.RedisDB,
-	})
+	opt, err := redis.ParseURL(cfg.RedisURL)
+	if err != nil {
+		log.Fatalf("parse redis url: %v", err)
+	}
+
+	opt.TLSConfig = &tls.Config{}
+
+	redisClient := redis.NewClient(opt)
 	defer redisClient.Close()
 
 	if err := redisClient.Ping(ctx).Err(); err != nil {
