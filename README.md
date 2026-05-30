@@ -2,6 +2,11 @@
 Project นี้เป็น URL Shortener ใช้ Golang Clean Architecture, PostgreSQL, Redis และ Next.js
 ในการพัฒนา
 
+# Link URL for test system
+Frontend URL : https://go-url-shortener-kr7i.vercel.app/
+Backend URL : https://go-url-shortener-vnyr.onrender.com/health
+
+
 # Flow overview
 Create URL:
 Frontend -> Backend -> PostgreSQL -> Redis
